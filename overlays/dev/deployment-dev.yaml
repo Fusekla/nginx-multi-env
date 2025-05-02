@@ -1,0 +1,14 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-with-random-data
+  namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dev-nginx-with-random-data
+  template:
+    metadata:
+      labels:
+        app: dev-nginx-with-random-data

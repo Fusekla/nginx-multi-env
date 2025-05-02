@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-with-random-data
+  namespace: miro-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-with-random-data
+  template:
+    metadata:
+      labels:
+        app: nginx-with-random-data
+    spec:
+      restartPolicy: Always
+      volumes:
+        - name: shared-data
+          persistentVolumeClaim:
+            claimName: nginx-shared-data
+        - name: secret-data
+          secret:
+            secretName: secret-html
+        - name: configmap-data
+          configMap:
+            name: configmap-html
+        - name: projected-data
+          projected:
+            sources:
+              - configMap:
+                  name: configmap-html
+                  items:
+                    - key: randomquote1.html
+                      path: randomquote1.html
+                    - key: randomquote2.html
+                      path: randomquote2.html
+              - secret:
+                  name: secret-html
+                  items:
+                    - key: randomquote3.html
+                      path: randomquote3.html
+      initContainers:
+        - name: busybox
+          image: busybox
+          volumeMounts:
+            - name: shared-data
+              mountPath: /shared
+            - name: configmap-data
+              mountPath: /configmap
+            - name: secret-data
+              mountPath: /secret
+            - name: projected-data
+              mountPath: /projected-data
+          command:
+            - /bin/sh
+          args:
+            - -c
+            - >
+              ln -s /projected-data/*.html /shared/;
+              ln -s /configmap/*.html /shared/;
+              ln -s /secret/*.html /shared/;
+              echo 'Hello in random data page' > /shared/index.html;
+              for i in 1 2 3 4 5; do
+                cat /dev/urandom | tr -dc _A-Z-a-z-0-9 | head -c 2m > /shared/random_data${i}.html;
+              done
+      containers:
+        - name: nginx
+          image: nginx
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+          readinessProbe:
+            tcpSocket:
+              port: 80
+          volumeMounts:
+            - name: shared-data
+              mountPath: /usr/share/nginx/html
+            - name: configmap-data
+              mountPath: /configmap
+            - name: secret-data
+              mountPath: /secret
+            - name: projected-data
+              mountPath: /projected-data

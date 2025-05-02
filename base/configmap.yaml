@@ -1,0 +1,13 @@
+apiVersion: v1
+data:
+  configmap.html: |-
+    This is a configmap
+  randomquote1.html: |-
+    "I'm about as intimidating as a butterfly."
+    ― Dan Howell
+  randomquote2.html: |-
+    "Never ask an elf for help; they might decide your better off dead, eh?""
+    ― Christopher Paolini, Eldest
+kind: ConfigMap
+metadata:
+  name: configmap-html
