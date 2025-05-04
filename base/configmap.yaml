@@ -1,7 +1,7 @@
 apiVersion: v1
 data:
   configmap.html: |-
-    This is a configmap
+    This is a base configmap
   randomquote1.html: |-
     "I'm about as intimidating as a butterfly."
     ― Dan Howell
