@@ -4,16 +4,16 @@ kind: Kustomization
 resources:
   - ../../base
 
-namePrefix: dev-
+namePrefix: prod-
 
-namespace: dev
+namespace: prod
 
 patches:
-  - path: service-dev.yaml
+  - path: service-prod.yaml
     target:
       kind: Service
       name: nginx-with-random-data
-  - path: deployment-dev.yaml
+  - path: deployment-prod.yaml
     target:
       kind: Deployment
       name: nginx-with-random-data
