@@ -21,3 +21,7 @@ patches:
     target:
       kind: ConfigMap
       name: configmap-html
+  - path: namespace-prod.yaml
+    target:
+      kind: Namespace
+      name: prod
