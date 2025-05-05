@@ -24,4 +24,4 @@ patches:
   - path: namespace-dev.yaml
     target:
       kind: Namespace
-      name: dev
+      name: miro-test

@@ -24,4 +24,4 @@ patches:
   - path: namespace-prod.yaml
     target:
       kind: Namespace
-      name: prod
+      name: miro-test
