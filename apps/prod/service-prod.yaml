@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: nginx-with-random-data
-  namespace: staging
+  namespace: prod
 spec:
   selector:
-    app: staging-nginx-with-random-data
+    app: prod-nginx-with-random-data
