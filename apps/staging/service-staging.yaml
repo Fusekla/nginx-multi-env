@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-with-random-data
+  namespace: staging
+spec:
+  selector:
+    app: staging-nginx-with-random-data

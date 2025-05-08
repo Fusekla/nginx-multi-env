@@ -1,0 +1,14 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-with-random-data
+  namespace: staging
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: staging-nginx-with-random-data
+  template:
+    metadata:
+      labels:
+        app: staging-nginx-with-random-data
