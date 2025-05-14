@@ -11,3 +11,5 @@ data:
 kind: ConfigMap
 metadata:
   name: configmap-html
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
